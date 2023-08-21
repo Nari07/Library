@@ -46,11 +46,14 @@ function clearInputs(){
 
 }
 
-let (i = 0; i < myLibrary.length; i++){
+for ( let i = 0; i < myLibrary.length; i++){
 	let bookCard = document.createElement(div);
-  let bookInfo = document.createTextNode(i);
-  displayBooks.appendChild(bookCard);
+  let bookInfo = document.createTextNode(myLibrary[i].title);
+ //let asdfasdf = document.createTextNode(myLibrary[i].author);
   bookCard.appendChild(bookInfo);
+  displayBooks.appendChild(bookCard);
+  
+  
 }
   
 /* greetingOutput.innerText = `Hello ${name.value}`;
