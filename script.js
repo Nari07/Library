@@ -41,7 +41,6 @@ submit.addEventListener('click', (e) => {
      
   
  	if (myLibrary.length === 0) {
-
     addBookToLibrary(book);
     document.querySelector('form').reset() // reset form  
     clearInputs();
@@ -56,29 +55,25 @@ submit.addEventListener('click', (e) => {
     tr2.appendChild(cellAuthor);
     tr3.appendChild(cellPages);
     tr4.appendChild(cellRead);
-
+    
   } else {
       console.log('length myLibrary = ' + myLibrary.length);
       let addBook = false;
       for (let i = 0; i < myLibrary.length; i++){
         console.log("TEST " + i)
         let bookTable = document.createElement('div');
-        let cellTitle = document.createTextNode(myLibrary[i].title);
-        let cellAuthor = document.createTextNode(myLibrary[i].author);
-        let cellPages = document.createTextNode(myLibrary[i].pages);
-        let cellRead = document.createTextNode(myLibrary[i].read);   
+        let cellTitle = document.createTextNode(title);
+        let cellAuthor = document.createTextNode(author);
+        let cellPages = document.createTextNode(pages);
+        let cellRead = document.createTextNode(read);   
         const newRow = tbodyRef.insertRow(i);
         const newCell0 = newRow.insertCell(0);
         const newCell1 = newRow.insertCell(1);
         const newCell2 = newRow.insertCell(2);
         const newCell3 = newRow.insertCell(3);
-        
-        console.log('title = ' + myLibrary[i].title + ' i = ' + i);
-        console.log(book + 'beginning loop');
-        
-        console.log("TEST  myLibrary[i].title =" + myLibrary[i].title);
-        console.log("TEST  title =" + title);
-        if (myLibrary[i].title === title) {
+      
+
+        if (myLibrary[i].title === title &&  myLibrary[i].author === author) {
           console.log("TEST INSIDE");
           console.log(myLibrary[i].title + ' = ' + title);
           console.log('if title matches' + book)
@@ -95,19 +90,20 @@ submit.addEventListener('click', (e) => {
           clearInputs();
           console.log(myLibrary);
           console.log(myLibrary[i].title + ' = ' + title);
-
+          
           newCell0.appendChild(cellTitle);
           newCell1.appendChild(cellAuthor);
           newCell2.appendChild(cellPages);
           newCell3.appendChild(cellRead);
-/*           bookTable.classList.add('table'); */
+          
       } 
     } 
     
     if(addBook) { // = true; prevents loop running twice
     	addBookToLibrary(book);
+      
     }
-     
+
 	}
 
 });
@@ -120,6 +116,10 @@ function clearInputs(){
 
 }
 
+
+
+
+/*  bookTable.classList.add('table'); */
 
 /* greetingOutput.innerText = `Hello ${name.value}`;
 }) 
