@@ -5,10 +5,10 @@ const readInput = document.getElementById('readInput');
 const displayBooks = document.getElementById('displayBooks');
 const submit = document.getElementById('submit');
 const tbodyRef = displayBooks.getElementsByTagName('tbody')[0];
-const tr1 = document.querySelector('tr td:nth-child(1)');
-const tr2 = document.querySelector('tr td:nth-child(2)');
-const tr3 = document.querySelector('tr td:nth-child(3)');
-const tr4 = document.querySelector('tr td:nth-child(4)');
+const td1 = document.querySelector('tr td:nth-child(1)');
+const td2 = document.querySelector('tr td:nth-child(2)');
+const td3 = document.querySelector('tr td:nth-child(3)');
+const td4 = document.querySelector('tr td:nth-child(4)');
 
 
 let myLibrary = [];
@@ -51,10 +51,10 @@ submit.addEventListener('click', (e) => {
     let cellPages = document.createTextNode(myLibrary[0].pages);
     let cellRead = document.createTextNode(myLibrary[0].read);   
     
-    tr1.appendChild(cellTitle);
-    tr2.appendChild(cellAuthor);
-    tr3.appendChild(cellPages);
-    tr4.appendChild(cellRead);
+    td1.appendChild(cellTitle);
+    td2.appendChild(cellAuthor);
+    td3.appendChild(cellPages);
+    td4.appendChild(cellRead);
     
   } else {
       console.log('length myLibrary = ' + myLibrary.length);
@@ -66,35 +66,44 @@ submit.addEventListener('click', (e) => {
         let cellAuthor = document.createTextNode(author);
         let cellPages = document.createTextNode(pages);
         let cellRead = document.createTextNode(read);   
-        const newRow = tbodyRef.insertRow(i);
-        const newCell0 = newRow.insertCell(0);
-        const newCell1 = newRow.insertCell(1);
-        const newCell2 = newRow.insertCell(2);
-        const newCell3 = newRow.insertCell(3);
+
+        let row = document.createElement('tr');
+        let td = document.createElement('td');
+
+
+        let cell1 = row.appendChild(td);
+        let cell2 = row.appendChild(td);
+        let cell3 = row.appendChild(td);
+        let cell4 = row.appendChild(td);
+        // const newRow = tbodyRef.insertRow(i);
+        // const newCell0 = newRow.insertCell(0);
+        // const newCell1 = newRow.insertCell(1);
+        // const newCell2 = newRow.insertCell(2);
+        // const newCell3 = newRow.insertCell(3);
       
 
         if (myLibrary[i].title === title &&  myLibrary[i].author === author) {
-          console.log("TEST INSIDE");
           console.log(myLibrary[i].title + ' = ' + title);
           console.log('if title matches' + book)
           clearInputs();	
           document.querySelector('form').reset() // reset form  
           alert(`${title} already exists in your library.`);
           console.log(myLibrary);
-          console.log("ENDTEST");
           break;   
         } else if (i == myLibrary.length - 1) {
-          addBook = true;
-          console.log('book = ' + book +  'if title doesnt match')
-          document.querySelector('form').reset() // reset form  
-          clearInputs();
-          console.log(myLibrary);
-          console.log(myLibrary[i].title + ' = ' + title);
-          
-          newCell0.appendChild(cellTitle);
-          newCell1.appendChild(cellAuthor);
-          newCell2.appendChild(cellPages);
-          newCell3.appendChild(cellRead);
+            addBook = true;
+            console.log('book = ' + book +  'if title doesnt match')
+            document.querySelector('form').reset() // reset form  
+            clearInputs();
+            console.log(myLibrary);
+            console.log(myLibrary[i].title + ' = ' + title);
+            
+            tbodyRef.appendChild(row);
+
+            cell1.appendChild(cellTitle);
+            cell2.appendChild(cellAuthor);
+            cell3.appendChild(cellPages);
+            cell4.appendChild(cellRead);
           
       } 
     } 
