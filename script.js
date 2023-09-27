@@ -44,7 +44,7 @@ submit.addEventListener('click', (e) => {
   
   let book = new createBook(title, author, pages, read);
      
- 	if (myLibrary.length === 0) {
+ 	if (myLibrary.length === 0) { //if library is empty, add first book
     addBookToLibrary(book);
     document.querySelector('form').reset() // reset form  
     clearInputs();
@@ -64,7 +64,13 @@ submit.addEventListener('click', (e) => {
    	deleteButton.textContent = 'x';
     
     bookTable.dataset.number = 0;
-    console.log(bookTable.dataset.number);
+    console.log('dataset = ' + bookTable.dataset.number)
+
+    deleteButton.addEventListener('click', () => {
+      tbodyRef.deleteRow(0);
+      myLibrary.splice(0, 1);
+      console.log('myLibrary = ' + JSON.stringify(myLibrary));
+    });
     
   } else {
       console.log('length myLibrary = ' + myLibrary.length);
@@ -92,15 +98,12 @@ submit.addEventListener('click', (e) => {
           clearInputs();	
           document.querySelector('form').reset() // reset form  
           alert(`${title} already exists in your library.`);
-          console.log(myLibrary);
           break;   
         } else if (i == myLibrary.length - 1) {
             addBook = true;
             console.log('book = ' + book +  'if title doesnt match')
             document.querySelector('form').reset() // reset form  
             clearInputs();
-            console.log(myLibrary);
-            console.log(myLibrary[i].title + ' = ' + title);
             
             tbodyRef.appendChild(row);
 
@@ -110,7 +113,16 @@ submit.addEventListener('click', (e) => {
             cell4.appendChild(cellRead);
             cell5.appendChild(deleteButton);
             deleteButton.textContent = 'x';
+
+            bookTable.dataset.number = (i + 1);
+            console.log('dataset = ' + bookTable.dataset.number);
           
+            deleteButton.addEventListener('click', () => {
+              tbodyRef.deleteRow(i);
+              myLibrary.splice(i, 1);
+              console.log('myLibrary = s' +  JSON.stringify(myLibrary));
+
+            });
       } 
     } 
     
@@ -120,6 +132,7 @@ submit.addEventListener('click', (e) => {
 	}
   
 	dialog.close();
+  console.log('myLibrary = ' + JSON.stringify(myLibrary) + '; loop closed')
   
 });
 
@@ -130,26 +143,11 @@ function clearInputs(){
   readInput.checked = false;
 };
 
-function openCheck() {
-  if (dialog.open) {
-    console.log("Dialog open");
-  } else {
-    console.log("Dialog closed");
-  }
-};
-
-
 addBookButton.addEventListener('click', () => {
-  console.log('butt');
 	dialog.showModal();
-  openCheck();
 });
 
-cancel.addEventListener('click', () => {
+cancel.addEventListener('click', () => {         
 	dialog.close();
-  openCheck();
 });
 
-//delete butt ton --> specifiy which book bneing deleted
-//book.dataset.number = i;
-  // console.log(book.number);
