@@ -67,7 +67,12 @@ submit.addEventListener('click', (e) => {
     console.log('dataset = ' + bookTable.dataset.number)
 
     deleteButton.addEventListener('click', () => {
-      tbodyRef.deleteRow(0);
+      // tbodyRef.deleteRow(0);
+      td1.innerHTML = '';
+      td2.innerHTML = '';
+      td3.innerHTML = '';
+      td4.innerHTML = '';
+      td5.innerHTML = '';
       myLibrary.splice(0, 1);
       console.log('myLibrary = ' + JSON.stringify(myLibrary));
     });
@@ -118,8 +123,9 @@ submit.addEventListener('click', (e) => {
             console.log('dataset = ' + bookTable.dataset.number);
           
             deleteButton.addEventListener('click', () => {
-              tbodyRef.deleteRow(i);
-              myLibrary.splice(i, 1);
+              tbodyRef.deleteRow(bookTable.dataset.number);
+              console.log("i = " + i);
+              myLibrary.splice(bookTable.dataset.number, 1);
               console.log('myLibrary = s' +  JSON.stringify(myLibrary));
 
             });
