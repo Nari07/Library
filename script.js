@@ -78,10 +78,10 @@ submit.addEventListener('click', (e) => {
     });
     
   } else {
-      console.log('length myLibrary = ' + myLibrary.length);
+      console.log('length myLibrary = ' + myLibrary.length + ' loop begins');
       let addBook = false;
       for (let i = 0; i < myLibrary.length; i++){
-        console.log("TEST " + i)
+        // console.log("TEST " + i)
         let bookTable = document.createElement('div');
         let cellTitle = document.createTextNode(title);
         let cellAuthor = document.createTextNode(author);
@@ -106,7 +106,7 @@ submit.addEventListener('click', (e) => {
           break;   
         } else if (i == myLibrary.length - 1) {
             addBook = true;
-            console.log('book = ' + book +  'if title doesnt match')
+            console.log('new book being added  = ' + JSON.stringify(book))
             document.querySelector('form').reset() // reset form  
             clearInputs();
             
@@ -119,15 +119,29 @@ submit.addEventListener('click', (e) => {
             cell5.appendChild(deleteButton);
             deleteButton.textContent = 'x';
 
-            bookTable.dataset.number = (i + 1);
+            let n = i + 1;
+
+            bookTable.dataset.number = n;
             console.log('dataset = ' + bookTable.dataset.number);
           
             deleteButton.addEventListener('click', () => {
-              tbodyRef.deleteRow(bookTable.dataset.number);
-              console.log("i = " + i);
-              myLibrary.splice(bookTable.dataset.number, 1);
-              console.log('myLibrary = s' +  JSON.stringify(myLibrary));
-
+              if (n < myLibrary.length){
+                tbodyRef.deleteRow(n);
+                console.log("i = " + i);
+                myLibrary.splice(bookTable.dataset.number, 1);
+                console.log('myLibrary = ' +  JSON.stringify(myLibrary));
+                bookTable.dataset.number = n - 1;
+                console.log('dataset = ' + bookTable.dataset.number);
+              } else {
+                bookTable.dataset.number = n - 1;
+                tbodyRef.deleteRow(n - 1);
+                myLibrary.splice(bookTable.dataset.number, 1);
+                bookTable.dataset.number = n - 1;
+                console.log('myLibrary = ' +  JSON.stringify(myLibrary));
+                console.log('dataset = ' + bookTable.dataset.number);
+              }
+              
+              
             });
       } 
     } 
@@ -141,6 +155,11 @@ submit.addEventListener('click', (e) => {
   console.log('myLibrary = ' + JSON.stringify(myLibrary) + '; loop closed')
   
 });
+
+function deleteBook() {
+  tbodyRef.deleteRow(bookTable.dataset.number);
+  
+}
 
 function clearInputs(){
   titleInput.value = '';
